@@ -3,18 +3,19 @@
 
 {% block content %}
 
-<h3 class= text-center>Register</h3>
+<h2 class= "text-center">Register</h2>
 <div class= "col-md-6 offset-md-3">
-    <form method= "POST" action="{% url 'register' %}">
-        {% csrf_token %}
+        <form method= "POST" action="{% url 'register' %}">
+                {% csrf_token %}
 
-        {% if form.errors %}
-            <p> Error.  Please Complete The Form Again. </p>
-        {% endif %}
+                {% if form.errors %}
+                    <p> Error.  Please Complete The Form Again. </p>
+                {% endif %}
 
-        {{ form.as_p }}
-        <input type= "submit" value= "Register" class= "btn btn-secondary">
+                {{ form.as_p }}
+                <input type= "submit" value= "Register" class= "btn btn-secondary">
 
-    </form>
+        </form>
 </div>
+
 {% endblock %}
