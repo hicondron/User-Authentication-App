@@ -4,29 +4,32 @@
 {% block content %}
 
 <h2 class= "text-center">Edit Profile</h2>
-        <form method= "POST" action="{% url 'edit_profile' %}">
-                {% csrf_token %}
+        <div class= "col-md-6 offset-md-3">
+                <form method= "POST" action="{% url 'edit_profile' %}">
+                        {% csrf_token %}
 
-                {% if form.errors %}
-                <div class= "alert alert-primary alert-dismissable" role= "alert">
-                        <button class= "close" data-dismiss="alert">
-                                <small><sup>x</sup></small>
-                            </button>
-                    <p> Error.  Please Complete The Form Again. </p>
-                    {% for field in form %}
-                            {% if field.errors %}
-                                {{ field.errors }}
-                            {% endif %}
+                        {% if form.errors %}
+                        <div class= "alert alert-primary alert-dismissable" role= "alert">
+                                <button class= "close" data-dismiss="alert">
+                                        <small><sup>x</sup></small>
+                                </button>
+                        <p> Error.  Please Complete The Form Again. </p>
+                        {% for field in form %}
+                                {% if field.errors %}
+                                        {{ field.errors }}
+                                {% endif %}
 
-                    {% endfor %}
+                        {% endfor %}
 
-                </div>
-                {% endif %}
+                        </div>
+                        {% endif %}
 
-                {{ form.as_p }}
-                <input type= "submit" value= "Save Profile Changes" class= "btn btn-secondary">
+                        {{ form.as_p }}
+                        <input type= "submit" value= "Save Profile Changes" class= "btn btn-secondary">
+                </form>
+                <p><small><a href="{% url 'change_password' %}" Click Here>To Change Your Password </a> </small></p>
+        </div>              
 
-        </form>
-
+ 
 <br/><br/>
 {% endblock %}

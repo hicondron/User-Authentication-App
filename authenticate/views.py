@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
@@ -59,7 +59,20 @@ def edit_profile(request):
         form = EditProfileForm(instance= request.user)
 
     context = {'form': form}
+    return render(request, 'authenticate/edit_profile.html', context)
 
 
-def change_password(request)
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(data=request.POST, user= request.user)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            messages.success(request, ('Your Password Has Been Changed'))
+            return redirect('home')
+    else:
+        form = PasswordChangeForm(user= request.user)
+
+    context = {'form': form}
+    return render(request, 'authenticate/change_password.html', context)
 
