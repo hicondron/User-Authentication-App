@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
+from .forms import SignUpForm, EditProfileForm
 
 def home(request): 
     return render(request, 'authenticate/home.html', {})
@@ -47,3 +47,19 @@ def register_user(request):
 
     context = {'form': form}
     return render(request, 'authenticate/register.html', context)
+
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance= request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, ('Your Profile Has Been Edited'))
+            return redirect('home')
+    else:
+        form = EditProfileForm(instance= request.user)
+
+    context = {'form': form}
+
+
+def change_password(request)
+
